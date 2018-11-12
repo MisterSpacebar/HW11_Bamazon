@@ -28,9 +28,13 @@ function runBamazon(){
         message: "What would you like to do?",
         choices: ["LIST","ORDER","SEARCH"]
     }).then(function(response){
-        if(response.menu=="LIST"){listBamazon();}
-        if(response.menu=="ORDER"){orderBamazon();}
-        if(response.menu=="SEARCH"){searchBamazon();}
+        if(response.menu=="LIST"){
+            listBamazon();
+        } else if(response.menu=="ORDER"){
+            orderBamazon();
+        } else if(response.menu=="SEARCH"){
+            searchBamazon();
+        }
     });
 }
 
