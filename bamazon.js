@@ -42,7 +42,7 @@ function listBamazon(){
 
         for(var i=0; i<res.length; i++){
             console.log(
-                "\nID: "+res[i].id+
+                "\n ID: "+res[i].id+
                 "\n Item: "+res[i].item+
                 "\n Department: "+res[i].department+
                 "\n Price: $"+res[i].price+
@@ -50,20 +50,9 @@ function listBamazon(){
             );
             console.log("\n---------------");
         }
-    }).then(inquirer.prompt({
-        type: "list",
-        name: "return",
-        message: "Do you wish to return to the menu?",
-        choices: ["Yes","No"]
-    }).then(function(response){
-        if(response.return == "Yes"){
-            console.log("Returning to the main menu...");
-            runBamazon();
-        } else {
-            console.log("Closing Bamazon...");
-            connection.end();
-        }
-    }));
+
+        returnBamazon();
+    })
 }
 
 function searchBamazon(){
@@ -80,21 +69,10 @@ function searchBamazon(){
             "\n Item : "+res.item+
             "\n Department: "+res.department+
             "\n Price: $"+res.price);
+
+            returnBamazon();
         })
-    }).then(inquirer.prompt({
-        type: "list",
-        name: "return",
-        message: "Do you wish to return to the menu?",
-        choices: ["Yes","No"]
-    }).then(function(response){
-        if(response.return == "Yes"){
-            console.log("Returning to the main menu...");
-            runBamazon();
-        } else {
-            console.log("Closing Bamazon...");
-            connection.end();
-        }
-    }));
+    });
 }
 
 function orderBamazon(){
@@ -108,8 +86,12 @@ function orderBamazon(){
         connection.query("SELECT * FROM products WHERE id="+response.search,
         function(error,res){
             if (error) throw error;
+
+            //reassign location + quantity
             quantity = res.stock;
             location = res.id;
+
+            //update if there's still stuff available
             if(quantity>0){
                 console.log("Ordering...");
                 quantity--;
@@ -125,8 +107,16 @@ function orderBamazon(){
             } else {
                 console.log("There's not enough left, sorry!");
             }
+
+            returnBamazon();
         })
-    }).then(inquirer.prompt({
+    });
+}
+
+//return to main menu
+function returnBamazon(){
+    console.log("\n------------------");
+    inquirer.prompt({
         type: "list",
         name: "return",
         message: "Do you wish to return to the menu?",
@@ -139,5 +129,5 @@ function orderBamazon(){
             console.log("Closing Bamazon...");
             connection.end();
         }
-    }));
+    });
 }
