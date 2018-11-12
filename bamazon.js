@@ -63,8 +63,7 @@ function listBamazon(){
             console.log("Closing Bamazon...");
             connection.end();
         }
-    })
-    );
+    }));
 }
 
 function searchBamazon(){
@@ -95,8 +94,7 @@ function searchBamazon(){
             console.log("Closing Bamazon...");
             connection.end();
         }
-    })
-    );
+    }));
 }
 
 function orderBamazon(){
@@ -141,6 +139,5 @@ function orderBamazon(){
             console.log("Closing Bamazon...");
             connection.end();
         }
-    })   
-    );
+    }));
 }
