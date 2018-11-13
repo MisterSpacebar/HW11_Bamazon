@@ -75,7 +75,7 @@ function searchBamazon(){
             "\n Price: $"+res.price);
 
             returnBamazon();
-        })
+        });
     });
 }
 
@@ -83,11 +83,13 @@ function orderBamazon(){
     var quantity;
     var location;
     inquirer.prompt({
-        type: "list",
+        type: "input",
         name: "order",
         message: "Which item do you want to order? Search via ID"
     }).then(function(response){
-        connection.query("SELECT * FROM products WHERE id="+response.search,
+        var searchInput = response.order;
+
+        connection.query("SELECT * FROM products WHERE id="+searchInput,
         function(error,res){
             if (error) throw error;
 
@@ -113,7 +115,7 @@ function orderBamazon(){
             }
 
             returnBamazon();
-        })
+        });
     });
 }
 
